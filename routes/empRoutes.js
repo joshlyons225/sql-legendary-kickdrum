@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../db/connection');
+const inquirer = require('inquirer');
+require('console.table') 
 
 
 module.exports = router;
