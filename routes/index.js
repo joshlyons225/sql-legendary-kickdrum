@@ -2,6 +2,7 @@ const inquirer = require('inquirer');
 const db = require('../db/connection');
 require('console.table')
 
+// initalizeApp function
 function initializeApp() {
     inquirer.prompt({
         type: 'list',
@@ -37,5 +38,30 @@ function initializeApp() {
         }
     });
 };
+
+// viewEmployee function
+
+
+
+// viewByDepartment function
+
+
+
+// addEmployee function
+
+
+
+// removeEmployee function
+
+
+
+// updateRole function
+
+
+
+// addRole function
+
+
+
 
 module.exports = initializeApp;
