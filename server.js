@@ -63,7 +63,7 @@ function initializeApp() {
                 updateRole();
                 break;
             case 'Add Role':
-                    addRole();
+                addRole();
                 break;
             case 'Terminate Session':
                 db.end();
