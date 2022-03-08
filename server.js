@@ -9,9 +9,6 @@ const app = express();
 // setup middleware
 app.use(express.urlencoded({ entended: false }));
 app.use(express.json());
-
-
-// setup api routing and 404 response
 app.use(routes);
 app.use((req, res) => {
     res.status(404).end();
