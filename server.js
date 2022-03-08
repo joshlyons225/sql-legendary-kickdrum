@@ -1,7 +1,7 @@
 const express = require('express');
 const db = require('./db/connection');
 const inquirer = require('inquirer');
-const apiRoutes = require('./routes/api');
+const routes = require('./routes');
 
 const PORT = process.env.PORT || 3007;
 const app = express();
@@ -12,7 +12,7 @@ app.use(express.json());
 
 
 // setup api routing and 404 response
-app.use('/api', apiRoutes);
+app.use(routes);
 app.use((req, res) => {
     res.status(404).end();
 });
