@@ -302,10 +302,68 @@ function empRoleOptions(empName, roleStyle) {
     });
 };
 
-
 // addRole function
+function addRole() {
+    const query = `
+    SELECT department.id, department.name, role.salary AS budget
+    FROM employee
+    JOIN role ON (role.id = employee.role_id)
+    JOIN department ON (department.id = role.department_id)
+    GROUP BY department.id, department.name
+    `;
+    // query the db
+    db.query(query, function (err, res) {
+        if (err) throw err;
+        const deptName = res.map(({ id, name }) =>({
+            value: id, name: `${id} ${name}`
+        }));
+        console.table(res);
+        // call addRoleArray function
+        addRoleArray(deptName);
+    });
+};
 
-
-
+// addRoleArray function
+function addRoleArray(deptName) {
+    // establish array
+    inquirer.prompt([
+        {
+            type: 'input',
+            name: 'roleTitle',
+            message: 'What is the title of the position?'
+        },
+        {
+            type: 'input',
+            name: 'roleSalary',
+            message: 'So, how much we paying?'
+        },
+        {
+            type: 'list',
+            name: 'departmentId',
+            message: 'To what department will this role belong?:',
+            choices: deptName
+        }
+    ])
+    .then(function (name) {
+        // query the db
+        const query = `
+        INSERT INTO role
+        SET ?
+        `;
+        // push newly created role to db
+        db.query(query, {
+            title: name.title,
+            salary: name.salary,
+            department_id: name.departmentId
+        },
+        function (err, res) {
+            if (err) throw err;
+            console.table(res);
+            console.log('New role created!');
+            // recall initializeApp
+            initializeApp();
+        });
+    });
+};
 
 module.exports = initializeApp;
