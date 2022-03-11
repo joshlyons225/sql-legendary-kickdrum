@@ -6,14 +6,14 @@ require('console.table')
 function initializeApp() {
     inquirer.prompt({
         type: 'list',
-        name: 'task',
+        name: 'choice',
         message: 'What you wanna do, boss?',
         choices: ['View Employees', 'View Employees by Department', 'Add an Employee', 'Remove an Employee', 'Update Role', 'Add Role', 'Terminate Session']
     })
-    
     // switch between task options above
-    .then(function ({ task }) {
-        switch (task) {
+    .then(function(answer) {
+        console.log(answer);
+        switch (answer.choice) {
             case 'View Employees':
                 viewEmployee();
                 break;
@@ -37,7 +37,7 @@ function initializeApp() {
                 break;
         }
     });
-};
+}
 
 // viewEmployee function
 function viewEmployee() {
@@ -53,11 +53,11 @@ function viewEmployee() {
     db.query(query, (err, res) => {
         if (err) throw err;
         console.table(res);
-        console.log('You found an employee!\n')
+        console.log('You found our employees!\n')
         // recall initializeApp function
         initializeApp();
     });
-};
+}
 
 // viewByDepartment function
 function viewByDepartment() {
@@ -80,7 +80,7 @@ function viewByDepartment() {
         // call dept-specific inquirer array
         deptOptions(deptName);
     });
-};
+}
 
 // deptOptions function to allow user to select desired department to search
 function deptOptions(deptName) {
@@ -111,7 +111,7 @@ function deptOptions(deptName) {
             initializeApp();
         });
     });
-};
+}
 
 
 // addEmployee function
@@ -132,7 +132,7 @@ function addEmployee() {
         // setup call for role-specific inquirer array
         roleOptions(roleName);
     });
-};
+}
 
 // roleOptions function to allow user to select desired role to search
 function roleOptions(roleName) {
@@ -175,7 +175,7 @@ function roleOptions(roleName) {
             initializeApp();
         });
     });
-};
+}
 
 // removeEmployee function
 function removeEmployee() {
@@ -194,7 +194,7 @@ function removeEmployee() {
         // setup call to find employee to delete inquirer array 
         deleteOptions(deleteName);
     });
-};
+}
 
 // deleteOptions function to allow user to select employee for deletion
 function deleteOptions(deleteName) {
@@ -220,7 +220,7 @@ function deleteOptions(deleteName) {
             initializeApp();
         });
     });
-};
+}
 
 // updateRole function
 function updateRole() {
@@ -245,7 +245,7 @@ function callEmployee() {
         // call callRole function
         callRole(empName);
     });
-};
+}
 
 // callRole function
 function callRole(empName) {
@@ -264,7 +264,7 @@ function callRole(empName) {
         // call empRoleOptions function
         empRoleOptions(empName, roleStyle);
     });
-};
+}
 
 // empRoleOptions function
 function empRoleOptions(empName, roleStyle) {
@@ -300,7 +300,7 @@ function empRoleOptions(empName, roleStyle) {
                 initializeApp();
         });
     });
-};
+}
 
 // addRole function
 function addRole() {
@@ -321,7 +321,7 @@ function addRole() {
         // call addRoleArray function
         addRoleArray(deptName);
     });
-};
+}
 
 // addRoleArray function
 function addRoleArray(deptName) {
@@ -364,6 +364,6 @@ function addRoleArray(deptName) {
             initializeApp();
         });
     });
-};
+}
 
 module.exports = initializeApp;
