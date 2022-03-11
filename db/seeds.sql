@@ -37,16 +37,16 @@ VALUES ('Buddy', 'Guy', 2, 3);
 INSERT INTO employee (first_name, last_name, role_id, manager_id)
 VALUES ('Jimmy', 'Page', 3, 4);
 INSERT INTO employee (first_name, last_name, role_id, manager_id)
-VALUES ('Gary', 'Clark Jr', 4, 3);
+VALUES ('Gary', 'Clark Jr', 5, 3);
 INSERT INTO employee (first_name, last_name, role_id, manager_id)
-VALUES ('David', 'Gilmour', 2, 1);
+VALUES ('David', 'Gilmour', 6, 1);
 INSERT INTO employee (first_name, last_name, role_id, manager_id)
-VALUES ('Stevie', 'Ray Vaughan', 3, 2);
+VALUES ('Stevie', 'Ray Vaughan', 7, 2);
 INSERT INTO employee (first_name, last_name, role_id, manager_id)
-VALUES ('Billy', 'Gibbons', 1, 4);
+VALUES ('Billy', 'Gibbons', 8, 4);
 INSERT INTO employee (first_name, last_name, role_id, manager_id)
-VALUES ('Slash', 'Rad', 2, 3);
+VALUES ('Slash', 'Rad', 9, 3);
 INSERT INTO employee (first_name, last_name, role_id, manager_id)
-VALUES ('Jack', 'White', 1, 2);
+VALUES ('Jack', 'White', 10, 2);
 
 
