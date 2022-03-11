@@ -222,9 +222,85 @@ function deleteOptions(deleteName) {
     });
 };
 
-
 // updateRole function
+function updateRole() {
+    // call callEmployee funciton
+    callEmployee();
+}
+function callEmployee() {
+    const query = `
+    SELECT employee.id, employee.first_name, employee.last_name, role.title, department.name AS department, role.salary, CONCAT(manager.first_name, ' ', manager.last_name) AS manager
+    FROM employee
+    JOIN role ON (role.id = employee.role_id)
+    JOIN department ON (department.id = role.department_id)
+    JOIN employee manager on manager.id = employee.manager_id
+    `;
+    // query db for selected info
+    db.query(query, function (err, res) {
+        if (err) throw err;
+        const empName = res.map(({ id, first_name, last_name }) => ({
+            value: id, name: `${first_name} ${last_name}`
+        }));
+        console.table(res);
+        // call callRole function
+        callRole(empName);
+    });
+};
 
+// callRole function
+function callRole(empName) {
+    console.log('Time to update that role')
+    const query = `
+    SELECT role.id, role.title, role.salary
+    FROM role
+    `;
+    // query the db
+    db.query(query, function (err, res) {
+        if (err) throw err;
+        const roleStyle = res.map(({ id, title, salary }) => ({
+            value: id, title: `${title}`, salary: `${salary}`
+        }));
+        console.table(res);
+        // call empRoleOptions function
+        empRoleOptions(empName, roleStyle);
+    });
+};
+
+// empRoleOptions function
+function empRoleOptions(empName, roleStyle) {
+    // establish array
+    inquirer.prompt([
+        {
+            type: 'list',
+            name: 'employeeId',
+            message: 'Select employee to update:',
+            choices: empName
+        },
+        {
+            type: 'list',
+            name: 'roleId',
+            message: 'Select the role to update:',
+            choices: roleStyle
+        }
+    ])
+    .then(function (name) {
+        const query = `
+        UPDATE employee
+        SET role_id
+        Where id = ?
+        `;
+        //query the db for user input above
+        db.query(query,
+            [ name.roleId, name.employeeId ],
+            function (err, res) {
+                if (err) throw err;
+                console.table(res);
+                console.log('Updated employee role')
+                // recall initializeApp
+                initializeApp();
+        });
+    });
+};
 
 
 // addRole function
