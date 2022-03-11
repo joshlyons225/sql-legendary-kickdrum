@@ -107,7 +107,6 @@ function deptOptions(deptName) {
             if (err) throw err;
             console.table(res);
             console.log(res.affectedRows);
-
             // recall initializeApp function
             initializeApp();
         });
@@ -116,8 +115,67 @@ function deptOptions(deptName) {
 
 
 // addEmployee function
+function addEmployee() {
+    const query = `
+    SELECT role.id, role.title, role.salary
+    FROM role
+    `;
+    // query db for above function
+    db.query(query, function (err, res) {
+        if (err) throw err;
+        // set object for role-specific responses
+        const roleName = res.map(({ id, title, salary }) => ({
+            value: id, title: `${title}`, salary: `${salary}`
+        }));
+        console.table(res);
+        console.log('You want a role?\n');
+        // setup call for role-specific inquirer array
+        roleOptions(roleName);
+    });
+};
 
-
+// roleOptions function to allow user to select desired role to search
+function roleOptions(roleName) {
+    // establish the array
+    inquirer.prompt([
+        {
+            type: 'input',
+            name: 'first_name',
+            message: 'Enter employee first name'
+        },
+        {
+            type: 'input',
+            name: 'last_name',
+            message: 'Enter employee last name'
+        },
+        {
+            type: 'list',
+            name: 'roleId',
+            message: 'Select employee role:',
+            choices: roleName
+        }
+    ])
+    .then(function (name) {
+        console.log(name);
+        const query = `
+        INSERT INTO employee SET ?
+        `;
+        // push new employee info into db
+        db.query(query, { 
+            first_name: name.first_name,
+            last_name: name.last_name,
+            role_id: name.roleId,
+            manager_id: name.managerId
+        },
+        function (err, res) {
+            if (err) throw err;
+            console.table(res);
+            console.log('You added an employee!\n')
+            // recall initializeApp function
+            initializeApp();
+        });
+    });
+};
 
 // removeEmployee function
 
