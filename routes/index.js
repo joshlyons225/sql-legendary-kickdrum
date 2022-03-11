@@ -82,6 +82,38 @@ function viewByDepartment() {
     });
 };
 
+// deptOptions function to allow user to select desired department to search
+function deptOptions(deptName) {
+    // establish the array
+    inquirer.prompt([
+        {
+            type: 'list',
+            name: 'deptId',
+            message: 'Select the department you want to search.',
+            choices: deptName
+        }
+    ])
+    .then(function (name) {
+        console.log('name', name.deptId);
+        const query = `
+        SELECT employee.id, employee.first_name, employee.last_name, role.title, department.name AS department
+        FROM employee
+        JOIN role ON (role.id = employee.role_id)
+        JOIN department ON (department.id = role.department_id)
+        WHERE department.id = ?
+        `;
+        // query db for above function
+        db.query(query, name.deptId, function (err, res) {
+            if (err) throw err;
+            console.table(res);
+            console.log(res.affectedRows);
+
+            // recall initializeApp function
+            initializeApp();
+        });
+    });
+};
+
 
 // addEmployee function
 
