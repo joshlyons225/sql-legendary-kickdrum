@@ -178,7 +178,49 @@ function roleOptions(roleName) {
 };
 
 // removeEmployee function
+function removeEmployee() {
+    const query = `
+    SELECT employee.id, employee.first_name, employee.last_name
+    FROM employee
+    `;
+    // query the db for employee
+    db.query(query, function (err, res) {
+        if (err) throw err;
+        const deleteName = res.map(({ id, first_name, last_name }) => ({
+            value: id, name: `${id} ${first_name} ${last_name}`
+        }));
+        console.table(res);
+        console.log('Get ready to delete..\n');
+        // setup call to find employee to delete inquirer array 
+        deleteOptions(deleteName);
+    });
+};
 
+// deleteOptions function to allow user to select employee for deletion
+function deleteOptions(deleteName) {
+    // establish the array
+    inquirer.prompt([
+        {
+            type: 'list',
+            name: 'employeeId',
+            message: 'Select employee to delete:',
+            choices: deleteName
+        }
+    ])
+    .then(function (name) {
+        const query = `
+        DELETE FROM employee WHERE ?
+        `;
+        // push deleted info to db
+        db.query(query, { id: name.employeeId }, function (err, res) {
+            if (err) throw err;
+            console.table(res);
+            console.log('That employee sucked anyway');
+            // recall initializeApp function
+            initializeApp();
+        });
+    });
+};
 
 
 // updateRole function
