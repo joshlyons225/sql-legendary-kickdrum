@@ -29,7 +29,7 @@ INSERT INTO role (title, salary, department_id)
 VALUES ('HR Director', 85000, 3);
 
 INSERT INTO employee (first_name, last_name, role_id, manager_id)
-VALUES ('Josh', 'Lyons', 4, 1);
+VALUES ('Josh', 'Lyons', 4, NULL);
 INSERT INTO employee (first_name, last_name, role_id, manager_id)
 VALUES ('Keith', 'Richards', 1, 2);
 INSERT INTO employee (first_name, last_name, role_id, manager_id)

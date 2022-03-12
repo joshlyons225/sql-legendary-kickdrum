@@ -286,7 +286,7 @@ function empRoleOptions(empName, roleStyle) {
     .then(function (name) {
         const query = `
         UPDATE employee
-        SET role_id
+        SET role_id = ?
         Where id = ?
         `;
         //query the db for user input above
