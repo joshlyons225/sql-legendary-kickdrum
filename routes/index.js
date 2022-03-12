@@ -352,8 +352,8 @@ function addRoleArray(deptName) {
         `;
         // push newly created role to db
         db.query(query, {
-            title: name.title,
-            salary: name.salary,
+            title: name.roleTitle,
+            salary: name.roleSalary,
             department_id: name.departmentId
         },
         function (err, res) {
