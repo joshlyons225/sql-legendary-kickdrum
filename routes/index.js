@@ -106,7 +106,7 @@ function deptOptions(deptName) {
         db.query(query, name.deptId, function (err, res) {
             if (err) throw err;
             console.table(res);
-            console.log(res.affectedRows);
+            console.log('There is your department.');
             // recall initializeApp function
             initializeApp();
         });
