@@ -38,3 +38,4 @@ This project was developed under the GNU license.
 ![Screenshot (17)](https://user-images.githubusercontent.com/95392565/158074957-fb22dea9-a142-4678-b055-9dcd380eda7e.png)
 
 ## Walkthrough Video
+https://drive.google.com/file/d/1FeAZCSvO6K1aGgcPVGcNhlrX60Bfxi89/view
